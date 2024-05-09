@@ -1,0 +1,8 @@
+- name: Install Gedit
+  tags: grp1,gedit
+  package:
+    name: gedit
+    state: latest
+  when: ansible_facts["distribution"] == "Ubuntu"
+  notify:
+    - Copy File

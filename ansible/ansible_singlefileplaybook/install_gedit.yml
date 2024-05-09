@@ -1,0 +1,43 @@
+- hosts: all
+  become: true
+  tags: always
+  pre_tasks:
+    - name: Update Repository Indexes
+      package:
+        update_cache: true
+      changed_when: false
+
+    - name: Skip Conditional Example
+      apt:
+        update_cache: true
+      when: ansible_facts["distribution"] == "CentOS"
+
+- hosts: servergrp_1
+  become: true
+  tags: grp1
+  tasks:
+    - name: install gedit package in servergrp_1
+      apt:
+        name: gedit
+        state: latest
+      when: ansible_facts["distribution"] == "Ubuntu"
+      register: task1
+
+    - name: run when gedit is installed
+      copy:
+        src: name.txt
+        dest: /opt/
+        owner: root
+        group: root
+        mode: 0660
+      when: task1.changed
+
+- hosts: servergrp_2
+  become: true
+  tags: grp2
+  tasks:
+    - name: install gedit package in servergrp_2
+      apt:
+        name: gedit
+        state: latest
+      when: ansible_facts["distribution"] == "Ubuntu"

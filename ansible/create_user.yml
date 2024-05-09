@@ -1,0 +1,23 @@
+- hosts: all
+  tags: always
+  become: true
+  tasks:
+    - name: Create User
+      user:
+        name: ansible
+        groups: root
+        state: present
+    
+    - name: Publish SSH key
+      authorized_key: 
+        user: ansible
+        state: present
+        key: "{{ lookup('file','~/.ssh/ansible.pub') }}" 
+
+    - name: Grant ansible sudo permissions
+      copy:
+        src: sudoer_ansible
+        dest: /etc/sudoers.d/ansible
+        owner: root
+        group: root
+        mode: 0440

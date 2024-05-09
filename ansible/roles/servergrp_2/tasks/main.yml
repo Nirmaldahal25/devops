@@ -1,0 +1,6 @@
+- name: Install Gedit
+  tags: grp2,gedit
+  package:
+    name: gedit
+    state: latest
+  when: ansible_facts["distribution"] == "Ubuntu"

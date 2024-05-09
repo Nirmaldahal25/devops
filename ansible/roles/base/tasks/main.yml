@@ -1,0 +1,5 @@
+- name: Update Packages
+  tags: always
+  package:
+    update_cache: true
+  changed_when: false

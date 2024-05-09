@@ -1,0 +1,7 @@
+- name: Copy File
+  copy:
+    src: name.txt
+    dest: /opt/
+    owner: root
+    group: root
+    mode: 0660

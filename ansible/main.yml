@@ -1,0 +1,14 @@
+- hosts: all
+  become: true
+  roles:
+    - base
+
+- hosts: servergrp_1
+  become: true
+  roles:
+    - servergrp_1
+
+- hosts: servergrp_2
+  become: true
+  roles:
+    - servergrp_2
